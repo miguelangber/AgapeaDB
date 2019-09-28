@@ -89,20 +89,24 @@
                         <h5>Regístrate con Apagea</h5>
                             <div class="row">
                                 <div class="col-12 col-md-6">
+                                <div id="alert_user" class="alert-logo" title="Porfavor introduzca un nombre de usuario sin espacios"></div>
                                 <label for="user" class="font-weight-bold">Usuario</label>
                                 <input id="user" type="text" class="form-control" placeholder="Escribe aquí tu usuario">
                                 </div>
                                 <div class="col-12 col-md-6">
+                                <div id="alert_mail" class="alert-logo" title="por favor, introduzca un formato de correo válido example@example.com"></div>
                                 <label for="mail" class="font-weight-bold">Correo electrónico</label>
                                 <input id="mail" type="text" class="form-control" placeholder="Escribe aquí tu correo">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-12 col-md-6">
-                                <label for="password" class="font-weight-bold">Escribe cual será tu contraseña</label>
+                                <div id="alert_password" class="alert-logo" title="La contraseña debe incluir una letra mayúscula, una minúscula, un número y debe tener entre 8 y 16 carácteres"></div>
+                                <label for="password" class="font-weight-bold">Escribe una contraseña</label>
                                 <input id="password" type="password" class="form-control" placeholder="Escribe aquí tu contraseña">
                                 </div>
                                 <div class="col-12 col-md-6">
+                                <div id="alert_repassword" class="alert-logo" title="Por favor, asegurese de haber escrito las dos contraseñas exactamente igual"></div>
                                 <label for="repassword" class="font-weight-bold">Repite la contraseña</label>
                                 <input id="repassword" type="password" class="form-control" placeholder="Escribe otra vez la contraseña">
                                 </div>
@@ -112,20 +116,24 @@
                         <h5>Datos personales</h5>
                         <div class="row">
                             <div class="col-12 col-md-6">
+                            <div id="alert_name" class="alert-logo" title="El nombre no permíte simbolos ni números"></div>
                             <label for="name" class="font-weight-bold">Mi nombre es</label>
                             <input id="name" type="text" class="form-control" placeholder="Escribe aquí tu nombre">
                             </div>
                             <div class="col-12 col-md-6">
+                            <div id="alert_lastname" class="alert-logo" title="el apellido no permite simbolos ni números"></div>
                             <label for="lastname" class="font-weight-bold">Mis apellidos</label>
                             <input id="lastname" type="text" class="form-control" placeholder="Escribe aquí tus apellidos">
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6">
+                            <div id="alert_adress" class="alert-logo" title="Escriba una direccion valida"></div>
                             <label for="adress" class="font-weight-bold">Direccion</label>
                             <input id="adress" type="text" class="form-control" placeholder="Escribe aquí tu direcion">
                             </div>
                             <div class="col-12 col-md-6">
+                            <div id="alert_country" class="alert-logo" title="Escriba un pais válido"></div>
                             <label for="country" class="font-weight-bold">Pais</label>
                             <input id="country" type="text" class="form-control" placeholder="Escribe aquí tu pais">
                             </div>
@@ -142,18 +150,19 @@
                             dinos dónde nos has visto.
                         </span><br>
                         
-                        <input type="radio" name="howtoknow" value="buscadores"><label for="buscadores" class="font-weight-bold">Google, Yahoo, Bing...</label><br>
-                        <input type="radio" name="howtoknow" value="librerias"><label for="librerias" class="font-weight-bold">Nuestras librerías</label><br>
-                        <input type="radio" name="howtoknow" value="rrss"><label for="rrss" class="font-weight-bold">Redes sociales</label><br>
-                        <input type="radio" name="howtoknow" value="medios_comunicacion"><label for="medios_comunicacion" class="font-weight-bold">Radio, prensa, televisión...</label><br>
-                        <input type="radio" name="howtoknow" value="eventos_culturales"><label for="eventos_culturales" class="font-weight-bold">Eventos culturales</label><br>
-                        <input type="radio" name="howtoknow" value="comentario_alguien"><label for="comentario_alguien" class="font-weight-bold">Alguien me lo comentó</label><br>
-                        <input type="radio" name="howtoknow" value="publicidad"><label for="publicidad" class="font-weight-bold">Publicidad</label><br>
-                        <input type="radio" name="howtoknow" value="otros"><label for="otros" class="font-weight-bold">Otros</label><br>
+                        <input id="radio_websearch" type="radio" name="howtoknow" value="buscadores"><label for="buscadores" class="font-weight-bold">Google, Yahoo, Bing...</label><br>
+                        <input id="radio_bookstore" type="radio" name="howtoknow" value="librerias"><label for="librerias" class="font-weight-bold">Nuestras librerías</label><br>
+                        <input id="radio_network" type="radio" name="howtoknow" value="rrss"><label for="rrss" class="font-weight-bold">Redes sociales</label><br>
+                        <input id="radio_media" type="radio" name="howtoknow" value="medios_comunicacion"><label for="medios_comunicacion" class="font-weight-bold">Radio, prensa, televisión...</label><br>
+                        <input id="radio_event" type="radio" name="howtoknow" value="eventos_culturales"><label for="eventos_culturales" class="font-weight-bold">Eventos culturales</label><br>
+                        <input id="radio_recommendation" type="radio" name="howtoknow" value="comentario_alguien"><label for="comentario_alguien" class="font-weight-bold">Alguien me lo comentó</label><br>
+                        <input id="radio_ad" type="radio" name="howtoknow" value="publicidad"><label for="publicidad" class="font-weight-bold">Publicidad</label><br>
+                        <input id="radio_other" type="radio" name="howtoknow" value="otros" checked><label for="otros" class="font-weight-bold" checked>Otros</label><br>
 
-                        <input type="text" class="form-control" name="other_text" id="other_text" placeholder="Escribe aquí cómo nos conoces">
+                        <div id="alert_other_text" class="alert-logo" title="Prueba a poner algo de texto"></div>
+                        <input type="text" class="form-control" name="other_text" id="other_text" placeholder="Escribe aquí de qué nos conoces">
 
-                        <input type="checkbox" name="recibirNovedades" id="recibirNovedades" value="1">
+                        <input type="checkbox" name="recibirNovedades" id="ads" value="1">
                         <span class="text-muted">
                             Deseo recibir información sobre libros, novedades y eventos de Agapea.com o sus librerías.
                         </span><br>
@@ -202,7 +211,7 @@
         </div>
         <script src="../js/jquery-3.3.1.slim.min.js"></script>
         <script src="../js/popper.min.js"></script>
-        <script src="../js/script.js"></script>
+        <script src="../js/registro.js"></script>
     </footer>
 </body>
 </html>

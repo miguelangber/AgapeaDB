@@ -20,6 +20,15 @@ a:hover{
     display: block;
     margin: 10px;   
 }
+.alert-logo{
+    background: url("../imagenes/icon20190712.png");
+    background-position: -221px -498px;
+    width: 19px;
+    height: 17px;
+    /* display: inline-block; */
+    display: none;
+    margin: 0px 5px;
+}
 .agapea_buttons_rrss {
     display: flex;
     align-items: center;
