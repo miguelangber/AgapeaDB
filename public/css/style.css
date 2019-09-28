@@ -1,0 +1,68 @@
+*{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
+.facebook-logo{
+    background: url("https://www.agapea.com/newimg/icon20190712.png") no-repeat;
+    background-position: -294px -1269px;
+    width: 13px;
+    height: 25px;
+    display: block;
+    margin: 10px;
+}
+.google-logo{   
+    background: url("https://www.agapea.com/newimg/icon20190712.png") no-repeat;
+    background-position: -227px -1267px;
+    width: 24px;
+    height: 25px;
+    display: block;
+    margin: 10px;   
+}
+.agapea_buttons_rrss {
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.facebook{
+    background-color: #3c599b;
+    border: 1px solid #3c599b;
+}
+.google{
+    background-color: #dd4b39;
+    border: 1px solid #dd4b39;
+}
+.facebook:hover{
+    color: #3c599b;
+    background-color: #fff;
+}
+.google:hover{
+    color: #dd4b39;
+    background-color: #fff;
+}
+.facebook:hover .facebook-logo{
+    background-position: -316px -1269px;
+}
+.google:hover .google-logo{
+    background-position: -263px -1267px;
+}
+.botonRegistra{
+    width: 150px;
+    height: 39px;
+    background: url(https://www.agapea.com/newimg/icon20190712.png);
+    display: inline-block;
+    border:blue; 
+    background-position: -104px -1456px; 
+    margin-top: 15px;
+}
+.botonRegistra:hover{
+    background-position: -104px -1497px; 
+}
+
+
+
+
+h5{
+    margin-top: 40px;
+}
