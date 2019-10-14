@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <script src="/public/js/bootstrap.min.js"></script>    
+    <link href="/public/css/style.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <!--
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Agapea_MVC_NetCore</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+
+        <hr />
+        <footer>
+            <p>&copy; 2019 - Agapea_MVC_NetCore</p>
+        </footer>
+    </div>
+
+        -->
+    <header>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="col text-right">
+                    <a href="http://" target="_blank" rel="Mi Cuenta">
+                        <img src="/public/imagenes/icon-micuenta.png" alt="Mi Cuenta">
+                        <span>Acceder a Mi Cuenta</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row justify-content-between" style="background-color: #020e68">
+                <div class="col">
+                    <a href="http://" target="_blank" rel="">
+                        <img src="/public/imagenes/logo_big.png" alt="Libros Urgentes"
+                             style="margin: 10px 0px;">
+                    </a>
+                </div>
+                <div class="col"></div>
+                <div class="col">
+                    <img class="float-right" src="/public/imagenes/horario_big_9_a_19.png" alt="Libros Urgentes">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-3 btn-group-vertical">
+                
+            </div>
+
+
+            <div class="col-9 input-group">
+                <div class="col p-3">
+                    <div class="row">
+                        <div class="col">
+                            <div class="w-75 input-group">
+                                <input type="text" class="form-control" aria-label="Text input with segmented dropdown button">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn bg-primary btn-outline-secondary">
+                                        <i class="icon-search"></i><!--ESTO NO FUNCIONA BUSCAR OtRAA SOLuCION-->
+                                        Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioTitleSearch" value="radioTitleSearch">
+                                <label class="form-check-label" for="radioTitleSearch">Buscar por título</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioAuthorSearch" value="radioAuthorSearch">
+                                <label class="form-check-label" for="radioAuthorSearch">Buscar por Autor</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="RadioSearchOptions" id="radioEditorSearch" value="radioEditorSearch">
+                                <label class="form-check-label" for="radioEditorSearch">Buscar por Editorial</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            <!--aqui va el body de las vistas que se incrustan-->
+            <div class="row"></div>
+                <div class="col">
+                    {{{body}}} 
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <footer>
+        <div class="container text-center" style="font-size: 14px">
+            <hr>
+            <img src="/public/imagenes/logo_cipi_esc.jpg" class="float-right" alt="">
+            <span>© Agapea Factory S.A. 2002 - 2019. Reservados todos los derechos</span>
+            <br>
+            <a href="">Aviso Legal</a> |
+            <a href="">Condiciones de contratación</a> |
+            <a href="">Política de Privacidad y Cookies</a>
+        </div>
+    </footer>
+    <script src="/public/js/jquery-3.3.1.slim.min.js"></script>
+    <script src="/public/js/popper.min.js"></script>
+
+
+</body>
+</html>
