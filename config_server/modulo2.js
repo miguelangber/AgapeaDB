@@ -1,3 +1,0 @@
-var modulo1=require("./modulo1.js");	//<---- require es el comando para importar modulos externos....
-
-	modulo1.mostrarNombre("miguel");

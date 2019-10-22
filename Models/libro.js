@@ -9,23 +9,24 @@ var mongoose=require("mongoose");
 
 var esquemaLibro=new mongoose.Schema({
 
-    titulo:{
+    Titulo:{
             type: String,
             required: true,
-            maxlength: 100
+            maxlength: 100,
+            default: "0000000000"
         },
-    editorial: {
+    Editorial: {
             type: String,
             required: true,
             maxlength: 100,
             //enum: ["Anaya","RA-MA","prestince-Hall"]
             },
-    autor: {
+    Autor: {
             type: String,
             maxlength: 200
         },
     ISBN: {
-            type: String,
+            type: Number,
             required: true,
             maxlength: 10,
             minlength: 10,
@@ -40,25 +41,25 @@ var esquemaLibro=new mongoose.Schema({
             match: /^[0-9]{13}$/,
             default: "0000000000000"
         },
-    numeroPaginas: {
+    NumeroPaginas: {
             type: Number,
             min: 10,
             max: 2000
             },
-    precio: {
+    Precio: {
             type: Number,
             required: true,
             min:1,
             max:10000
         },
-    idMateria: {
+    IdMateria: {
             type: Number,
             required: true,
            },
-    descripcion: {
+    Descripcion: {
             type: String
              },
-    imagenLibro: {
+    FicheroImagen: {
             type: String,
             required: true,
             validate: (valor)=>{
