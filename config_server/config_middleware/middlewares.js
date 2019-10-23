@@ -15,8 +15,9 @@ module.exports=function(servidorExpress){
 
     servidorExpress.use(session({
         maxAge:3600000,
-        secret:"valorCifradoCookiesSession",
-        store: Memory /*lo suyo sería almacenarlas dentro de MongoDataBase
+        secret:"valorCifradoCookiesSession"
+        //store: Memory 
+                        /*lo suyo sería almacenarlas dentro de MongoDataBase
                         importar paquete connect-mongo y definir en esta propiedad la coleccion 
                         donde se almacenan las cookies*/
     })); // configurar las variables de sesión

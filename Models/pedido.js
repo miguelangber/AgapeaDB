@@ -17,53 +17,55 @@ var mongoose=require("mongoose");
 
 var esquemaPedido=new mongoose.Schema({
     idPedido:{
-        type: String, required
+        type: String, require
     },
     nifCliente:{
         type: String, 
-        required, 
+        require, 
         maxlength:9, 
         minlength:9, 
         match: /^[0-9]{8}[A-Z]$/
     },
     fechaPedido:{
         type: Date, 
-        required
+        require
     },
     listaLibros:{
         type: Array, 
-        required/*,
+        require/*,
         validate: (arr)=>{
             arr.find(element => {
-                /*
+                
                 var bValidation;
                 if (eleme) {
                     
                 }
                 return 
             });
-        }
-        
-                */
+        }        */  
+    },
+    listaISBNs:{
+        type:Array,
+        require
     },
     listaCantidades:{
         type: Array, 
-        required,
+        require/*,
         validate: (valor)=>{
             if (valor<=0 || valor>500) {
                 return false; // no dejo comprar mas de 500 unidades
             } else {
                 
             }
-        }
+        }*/
     },
     tipoGastoEnvio:{
         type: String, 
-        required
+        require
     },
     estadoPedido:{
         type: String,
-        required
+        require
     }
 });
 
