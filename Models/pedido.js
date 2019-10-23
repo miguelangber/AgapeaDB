@@ -17,24 +17,24 @@ var mongoose=require("mongoose");
 
 var esquemaPedido=new mongoose.Schema({
     idPedido:{
-        type: String, require
+        type: String, required: true
     },
     nifCliente:{
         type: String, 
-        require, 
+        required: true, 
         maxlength:9, 
         minlength:9, 
         match: /^[0-9]{8}[A-Z]$/
     },
     fechaPedido:{
         type: Date, 
-        require
+        required: true
     },
-    listaLibros: {type:Array, required:true},
+    listaLibros: {type:Array, required: true},
     /*
     listaLibros:{
         type: Array, 
-        require,
+        required: true,
         validate: (arr)=>{
             arr.find(element => {
                 
@@ -49,11 +49,11 @@ var esquemaPedido=new mongoose.Schema({
     
     listaISBNs:{
         type:Array,
-        require
+        required: true
     },
     listaCantidades:{
         type: Array, 
-        require,
+        required: true,
         validate: (valor)=>{
             if (valor<=0 || valor>500) {
                 return false; // no dejo comprar mas de 500 unidades
@@ -65,11 +65,11 @@ var esquemaPedido=new mongoose.Schema({
     */
     tipoGastoEnvio:{
         type: String, 
-        require
+        required: true
     },
     estadoPedido:{
         type: String,
-        require
+        required: true
     }
 });
 

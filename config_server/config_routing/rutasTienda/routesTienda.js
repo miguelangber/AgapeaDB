@@ -12,7 +12,7 @@ router.param("paramTienda", (req,res,next,paramTienda)=>{
     req.paramTienda=paramTienda;
     next(); // siga procesando el siguiente modulo de rutas...
 });
-router.get("/Tienda/VistaLibro/:paramTienda",(req,res,next)=>{
+router.get("/VistaLibro/:paramTienda",(req,res,next)=>{
     // recuperar de la BD el libro, y pasarselo a la vista
     Libro.findOne({"ISBN": req.paramTienda},(err,respuesta)=>{
         if(err){
@@ -27,9 +27,8 @@ router.get("/Tienda/VistaLibro/:paramTienda",(req,res,next)=>{
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
-router.get("/Tienda/Libros/:paramTienda", (req,res,next)=>{
+router.get("/Libros/:paramTienda", (req,res,next)=>{
     // recuperar de la BD el array de libros, y pasarselo a la vista...
-    if (req.paramTienda == undefined) req.paramTienda=0;
     Libro.find({"IdMateria": req.paramTienda},(err, respuesta)=>{
         if(err){
             res.statusCode(400).render("error interno...");
@@ -40,7 +39,18 @@ router.get("/Tienda/Libros/:paramTienda", (req,res,next)=>{
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
-router.get("/Tienda/Carrito/:paramTienda", (req,res,next)=>{
+router.get("/Libros", (req,res,next)=>{
+    Libro.find({},(err, respuesta)=>{
+        if(err){
+            res.statusCode(400).render("error interno...");
+            console.log(err);
+        } else{
+            res.render("Tienda/Libros.hbs",{listaLibros: respuesta});
+        }// cierre if err
+    });//cierre callback y cierre de Libro.find
+}) // cierre del router get
+
+router.get("/Carrito/:paramTienda", (req,res,next)=>{
     //recuuperar de la BD el libro con el ISBN que me pasan por la url
     //añadirlo a la variable de sesion PEDIDO
     /* 
@@ -98,7 +108,32 @@ router.get("/Tienda/Carrito/:paramTienda", (req,res,next)=>{
             
         }
    });
+}); // cierre del router get
+
+router.get("/Quitalibro/:paramTienda",(req,res,next)=>{
+    Libro.findOne({"iSBN":req.paramTienda},(err,datos)=>{
+        if(!err){
+            var _pedido = req.session.pedidoUsuario;
+            var _libroEliminar= _pedido.listaLibros.find((el)=>{return el.libro.ISBN==req.paramTienda});
+            if(_libroEliminar != undefined){
+                var _temp=[];
+                _pedido.listaLibros.forEach( (el)=>{
+                    if(el.libro.ISBN != req.paramTienda){
+                        _temp.push(el);
+                    }
+                } );
+                _pedido.listaLibros=_temp;
+                req.session.pedidoUsuario=_pedido;
+            }
+            
+            res.render('Tienda/Pedido.hbs',{ layout: null, 
+                                             pedido: _pedido
+                                            });
+        }
+    });
 });
 
-
+/*
+    temperdata
+*/
 module.exports = router;
