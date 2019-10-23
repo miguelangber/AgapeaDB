@@ -30,9 +30,11 @@ var esquemaPedido=new mongoose.Schema({
         type: Date, 
         require
     },
+    listaLibros: {type:Array, required:true},
+    /*
     listaLibros:{
         type: Array, 
-        require/*,
+        require,
         validate: (arr)=>{
             arr.find(element => {
                 
@@ -42,23 +44,25 @@ var esquemaPedido=new mongoose.Schema({
                 }
                 return 
             });
-        }        */  
+        }          
     },
+    
     listaISBNs:{
         type:Array,
         require
     },
     listaCantidades:{
         type: Array, 
-        require/*,
+        require,
         validate: (valor)=>{
             if (valor<=0 || valor>500) {
                 return false; // no dejo comprar mas de 500 unidades
             } else {
                 
             }
-        }*/
+        }
     },
+    */
     tipoGastoEnvio:{
         type: String, 
         require

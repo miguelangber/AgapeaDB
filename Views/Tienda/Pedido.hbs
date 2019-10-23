@@ -8,11 +8,12 @@
 <body>
     {{!-- Tengo que hacer todo la página --}}
     {{!-- el modelo es un objeto de tipo pedido que se pasa con el nombre de "vistapedido" --}}
-    <h1>vista del Pedido</h1> 
-    <p>array de Cantidades {{pedido.listaCantidades}} </p>
+    <h1>vista del Pedido</h1>
     
-    {{#each pedido.listaLibros}}
-        <p>{{this.Titulo}}</p>
+    {{#each pedido.listaLibros as |unlibro|}}
+        {{>miniLibroCarrito unlibro}}
     {{/each}}
+
+    <a href="/Tienda/Libros/5"><h1>Volver al index</h1></a>
 </body>
 </html>

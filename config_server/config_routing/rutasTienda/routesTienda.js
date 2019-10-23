@@ -14,12 +14,14 @@ router.param("paramTienda", (req,res,next,paramTienda)=>{
 });
 router.get("/Tienda/VistaLibro/:paramTienda",(req,res,next)=>{
     // recuperar de la BD el libro, y pasarselo a la vista
-    Libro.find({"ISBN": req.paramTienda},(err,respuesta)=>{
+    Libro.findOne({"ISBN": req.paramTienda},(err,respuesta)=>{
         if(err){
             res.statusCode(400).render("Error interno...")
             console.log(err);
         } else {
-            //console.log("respuesta en el Libro.find(): "+respuesta);
+            //var miLibro = new Libro();
+            //miLibro=respuesta;
+
             res.render("Tienda/VistaLibro.hbs",{libro: respuesta});
         }// cierre if err
     });//cierre callback y cierre de Libro.find
@@ -52,49 +54,46 @@ router.get("/Tienda/Carrito/:paramTienda", (req,res,next)=>{
    console.log();
    console.log();
    console.log();
-   console.log("Entrando en el route.get")
+   console.log("Entrando en el route.get del carrito")
    var _isbn=req.paramTienda;
    Libro.findOne({"ISBN": _isbn},(err,datos)=>{
         if (!err) {
             var _pedido;
             //console.log(req.session.pedidoUsuario); // <--------- ¿¿PORQUE ES INDEFINIDO?? PREGUNTAR
             if (!req.session.pedidoUsuario) { 
-                console.log("!req.session.pedidoUsuario es true (o indefinido)");
                 // no hay pedido aun
                 _pedido = new Pedido();
                 _pedido.idPedido="";
                 _pedido.nifCliente=req.sessionID; // tendriamos que cogerlo de la variabvle de sesion del cliente logeado
                 _pedido.fechaPedido=new Date(Date.now()).toUTCString();
-                _pedido.listaLibros.push(datos);
-                _pedido.listaISBNs.push(_isbn);
-                _pedido.listaCantidades.push(1);
+                _pedido.listaLibros.push({libro:datos,cantidad:1});
                 _pedido.estadoPedido="ENPREPARACION";
-                _pedido.tipoGastosEnvio="Peninsula";
+                _pedido.tipoGastosEnvio="PENINSULA";
 
                 _pedido.save((errinsert,result)=>{}); // insert del pedido en mongoDB
 
                 req.session.pedidoUsuario=_pedido;
             } else {
-                console.log("!req.session.pedidoUsuario es false (ya está definido)");
                 // hay pedido, comprobamos si tiene el libro
                 _pedido=req.session.pedidoUsuario;
                 // tengo que comprobar que en el pedido existe o no el ISBN del libro que quiere el cliente comprar
                 
-                //devuelve el indice del libro, si el libro no está devuelve -1  (Aunque no se porque me está devolviendo 
-                var indice = _pedido.listaISBNs.indexOf(_isbn);// -1 cuando recargo la pagina con el mismo isbn)
-                console.log("indice es: "+indice)
-                if (indice!=-1) { // se ha encontrado el libro, solo tenemos que incrementar la cantidad
-                    _pedido.listaCantidades[indice] = parseInt(_pedido.listaCantidades[indice])+1;
+                var _libropedido = _pedido.listaLibros.find((el)=>{return el.libro.ISBN==_isbn});
+
+                if(_libropedido){
+                    _libropedido.cantidad=_libropedido.cantidad + 1;
+                    console.log();
+                    console.log("libropedido incrementado: "+_libropedido.cantidad);
                 } else {
                     //no se encuentra, lo añado a lista de libros y añado nueva en listaCantidades
-                    _pedido.listaLibros.push(datos);
-                    _pedido.listaISBNs.push(_isbn);
-                    _pedido.listaCantidades.push(1);
+                    _pedido.listaLibros.push({libro:datos,cantidad:1});
                 }
                 req.session.pedidoUsuario=_pedido;
             }
-            console.log(_pedido);
-            res.render('Tienda/Pedido.hbs',{ layout: null, pedido: _pedido });
+            
+            res.render('Tienda/Pedido.hbs',{ layout: null, 
+                                             pedido: _pedido
+                                        });
         } else {
             
         }
