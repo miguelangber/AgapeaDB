@@ -6,6 +6,18 @@ var router = express.Router();
 var Libro=require("../../../Models/libro");
 var Pedido=require("../../../Models/pedido")
 
+function renderIndex(path, err, resp) {
+    if(err){
+        res.statusCode(400).render("Error interno...")
+        console.log(err);
+    } else {
+        //var miLibro = new Libro();
+        //miLibro=respuesta;
+
+        res.render(path,{libro: resp});
+    }// cierre if err
+}
+
 
 // 1º)rutas para gestionar la parte de tienda/libros
 router.param("paramTienda", (req,res,next,paramTienda)=>{
@@ -15,37 +27,27 @@ router.param("paramTienda", (req,res,next,paramTienda)=>{
 router.get("/VistaLibro/:paramTienda",(req,res,next)=>{
     // recuperar de la BD el libro, y pasarselo a la vista
     Libro.findOne({"ISBN": req.paramTienda},(err,respuesta)=>{
-        if(err){
-            res.statusCode(400).render("Error interno...")
-            console.log(err);
-        } else {
-            //var miLibro = new Libro();
-            //miLibro=respuesta;
-
-            res.render("Tienda/VistaLibro.hbs",{libro: respuesta});
-        }// cierre if err
+        renderIndex("Tienda/VistaLibro.hbs", err, respuesta);
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
 router.get("/Libros/:paramTienda", (req,res,next)=>{
     // recuperar de la BD el array de libros, y pasarselo a la vista...
     Libro.find({"IdMateria": req.paramTienda},(err, respuesta)=>{
-        if(err){
-            res.statusCode(400).render("error interno...");
-            console.log(err);
-        } else{
-            res.render("Tienda/Libros.hbs",{listaLibros: respuesta});
-        }// cierre if err
+        renderIndex("Tienda/Libros.hbs", err, respuesta);
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
 router.get("/Libros", (req,res,next)=>{
     Libro.find({},(err, respuesta)=>{
         if(err){
-            res.statusCode(400).render("error interno...");
+            res.statusCode(400).render("Error interno...")
             console.log(err);
-        } else{
-            res.render("Tienda/Libros.hbs",{listaLibros: respuesta});
+        } else {
+            //var miLibro = new Libro();
+            //miLibro=respuesta;
+    
+            res.render("Tienda/Libros.hbs",{libro: respuesta});
         }// cierre if err
     });//cierre callback y cierre de Libro.find
 }) // cierre del router get
@@ -61,10 +63,6 @@ router.get("/Carrito/:paramTienda", (req,res,next)=>{
                 se incrementa en 1 su cantidad
                 
     */
-   console.log();
-   console.log();
-   console.log();
-   console.log("Entrando en el route.get del carrito")
    var _isbn=req.paramTienda;
    Libro.findOne({"ISBN": _isbn},(err,datos)=>{
         if (!err) {
@@ -73,11 +71,11 @@ router.get("/Carrito/:paramTienda", (req,res,next)=>{
             if (!req.session.pedidoUsuario) { 
                 // no hay pedido aun
                 _pedido = new Pedido();
-                _pedido.idPedido="";
+                _pedido.id="";
                 _pedido.nifCliente=req.sessionID; // tendriamos que cogerlo de la variabvle de sesion del cliente logeado
-                _pedido.fechaPedido=new Date(Date.now()).toUTCString();
+                _pedido.fecha=new Date(Date.now()).toUTCString();
                 _pedido.listaLibros.push({libro:datos,cantidad:1});
-                _pedido.estadoPedido="ENPREPARACION";
+                _pedido.estado="ENPREPARACION";
                 _pedido.tipoGastosEnvio="PENINSULA";
 
                 _pedido.save((errinsert,result)=>{}); // insert del pedido en mongoDB
@@ -131,6 +129,10 @@ router.get("/Quitalibro/:paramTienda",(req,res,next)=>{
                                             });
         }
     });
+});
+
+router.get("/RefrescaPedido/:paramTienda",(req,res,next)=>{
+    //en paramTienda está el libro del que quiero moificar la cantidad
 });
 
 /*

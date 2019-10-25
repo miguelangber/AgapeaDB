@@ -7,7 +7,6 @@ propiedades que va a tener :
     - nifCliente
     - fechaPedido
     - listaLibros
-    - listaCantidades
     - tipoGastosEnvio
     - estadoPedido
 */
@@ -16,7 +15,7 @@ propiedades que va a tener :
 var mongoose=require("mongoose");
 
 var esquemaPedido=new mongoose.Schema({
-    idPedido:{
+    id:{
         type: String, required: true
     },
     nifCliente:{
@@ -26,50 +25,25 @@ var esquemaPedido=new mongoose.Schema({
         minlength:9, 
         match: /^[0-9]{8}[A-Z]$/
     },
-    fechaPedido:{
+    fecha:{
         type: Date, 
         required: true
     },
-    listaLibros: {type:Array, required: true},
-    /*
-    listaLibros:{
-        type: Array, 
-        required: true,
-        validate: (arr)=>{
-            arr.find(element => {
-                
-                var bValidation;
-                if (eleme) {
-                    
-                }
-                return 
-            });
-        }          
-    },
-    
-    listaISBNs:{
-        type:Array,
+    listaLibros: {
+        type:Array, 
         required: true
     },
-    listaCantidades:{
-        type: Array, 
-        required: true,
-        validate: (valor)=>{
-            if (valor<=0 || valor>500) {
-                return false; // no dejo comprar mas de 500 unidades
-            } else {
-                
-            }
-        }
-    },
-    */
     tipoGastoEnvio:{
         type: String, 
         required: true
     },
-    estadoPedido:{
+    estado:{
         type: String,
         required: true
+    },
+    tipoGastosEnvio:{
+        type:String,
+        required:true
     }
 });
 

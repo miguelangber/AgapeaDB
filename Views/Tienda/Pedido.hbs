@@ -15,5 +15,32 @@
     {{/each}}
 
     <a href="/Tienda/Libros/5"><h1>Volver al index</h1></a>
+
+    <script>
+        var botones=document.getElementsByName("boton");
+
+        //--añado un listener a todos los botonesMas y botonesMenos
+        Array.from(botones).forEach((boton)=>{
+            boton.addEventListener("click",(ev)=>{
+                var _botonPulsado=ev.target;
+                var _isbnModificado=_botonPulsado.id.split("+")[1];
+                var _cantidad=parseInt(document.getElementById("cantidad_"+_isbnModificado).childNodes[0].nodeValue);
+                switch(_botonPulsado.id.split("_")[0]){
+                    case "botomas":
+                        // incrementamos cantidad y pedimos al servidor que rfresque vistapedido con la nueva cantidad
+                        _cantidad=_cantidad+1;
+                    break;
+                    case "botonmenos":
+                        // decrementamos cantidad y pedimos al servidor que rfresque vistapedido con la nueva cantidad
+                        // controlo que no sea 0
+                        _cantidad=_cantidad-1;
+
+                    break;
+                }
+               // document.getElementById("cantidad_"+_isbnModificado).childNodes[0].nodeValue=_cantidad;
+               window.location.href="http://localhost:3000/Tienda/RefrescaPedido/"+_isbnModificado+"?cantidad="+_cantidad;
+            }); // fin de listener
+        }); // fin de foreach
+    </script>
 </body>
 </html>
