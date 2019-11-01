@@ -6,7 +6,8 @@ var router = express.Router();
 var Libro=require("../../../Models/libro");
 var Pedido=require("../../../Models/pedido")
 
-function renderIndex(path, err, resp) {
+function renderIndex(path, response, err, result) {
+
     if(err){
         res.statusCode(400).render("Error interno...")
         console.log(err);
@@ -14,7 +15,7 @@ function renderIndex(path, err, resp) {
         //var miLibro = new Libro();
         //miLibro=respuesta;
 
-        res.render(path,{libro: resp});
+        response.render(path,{listaLibros: result});
     }// cierre if err
 }
 
@@ -26,29 +27,21 @@ router.param("paramTienda", (req,res,next,paramTienda)=>{
 });
 router.get("/VistaLibro/:paramTienda",(req,res,next)=>{
     // recuperar de la BD el libro, y pasarselo a la vista
-    Libro.findOne({"ISBN": req.paramTienda},(err,respuesta)=>{
-        renderIndex("Tienda/VistaLibro.hbs", err, respuesta);
+    Libro.findOne({"ISBN": req.paramTienda},(err,result)=>{
+        renderIndex("Tienda/VistaLibro.hbs", res, err, result);
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
 router.get("/Libros/:paramTienda", (req,res,next)=>{
     // recuperar de la BD el array de libros, y pasarselo a la vista...
-    Libro.find({"IdMateria": req.paramTienda},(err, respuesta)=>{
-        renderIndex("Tienda/Libros.hbs", err, respuesta);
+    Libro.find({"IdMateria": req.paramTienda},(err, result)=>{
+        renderIndex("Tienda/Libros.hbs", res, err, result);
     });//cierre callback y cierre de Libro.find
 }); // cierre del router get
 
 router.get("/Libros", (req,res,next)=>{
-    Libro.find({},(err, respuesta)=>{
-        if(err){
-            res.statusCode(400).render("Error interno...")
-            console.log(err);
-        } else {
-            //var miLibro = new Libro();
-            //miLibro=respuesta;
-    
-            res.render("Tienda/Libros.hbs",{libro: respuesta});
-        }// cierre if err
+    Libro.find({},(err, result)=>{
+        renderIndex("Tienda/Libros.hbs", res, err, result);
     });//cierre callback y cierre de Libro.find
 }) // cierre del router get
 
@@ -99,7 +92,8 @@ router.get("/Carrito/:paramTienda", (req,res,next)=>{
                 req.session.pedidoUsuario=_pedido;
             }
             
-            res.render('Tienda/Pedido.hbs',{ layout: null, 
+            
+            res.render('Tienda/Pedido.hbs',{ /*layout: null,*/ 
                                              pedido: _pedido
                                         });
         } else {

@@ -1,4 +1,18 @@
-<div style="border: solid 1px; text-align:center" >
-    <p>{{libro.Titulo}}</p>
-    <p> {{cantidad}} </p>
-</div>
+<td>
+    <a class="btn btn-danger">X</a>
+</td>
+<td><img height="100" src="/public/imagenes/imagenLibro.png" alt={{libro.Titulo}} /></td>
+<td scope="row">
+    <strong name="@Model.Key.isbn.ToString()">{{libro.Titulo}}</strong>
+    <br />
+    <p style="max-width:500px; max-height:120px; overflow:auto">{{libro.Descripcion}}</p>
+</td>
+<td>
+    <a class="btn btn-primary">+</a>
+
+    <span class="p-2">{{cantidad}}</span>
+
+    <a class="btn btn-primary">-</a>
+</td>
+<td>{{libro.Precio}} €</td>
+<td></td>

@@ -6,41 +6,69 @@
     <title>Vista del pedido</title>
 </head>
 <body>
-    {{!-- Tengo que hacer todo la página --}}
-    {{!-- el modelo es un objeto de tipo pedido que se pasa con el nombre de "vistapedido" --}}
-    <h1>vista del Pedido</h1>
-    
-    {{#each pedido.listaLibros as |unlibro|}}
-        {{>miniLibroCarrito unlibro}}
-    {{/each}}
 
-    <a href="/Tienda/Libros/5"><h1>Volver al index</h1></a>
+
+
+    <main class="container-fluid">
+        <div class="text-header">
+            <h1>Agapea <small>Tu Carrito de la compra :)</small></h1>
+            <p>
+                Nuestro amplio catálogo en stock facilita al cliente la ventaja de comprar libros con entrega
+                en 24 horas a través de las principales agencias de mensajerías urgente. Otras ventajas son los miles
+                de libros con gasto de envío gratis y urgente, la posibilidad de poder recoger tu pedido en tu librería
+                Agapea más cercana y la garantía de una compra de libros sencilla, rápida y segura. Toda la información
+                personal está protegida en todo momento y disponemos de los principales sistemas de pago seguro.
+            </p>
+        </div>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Libro</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Precio Unidad</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each pedido.listaLibros as |unlibro|}}
+                    <tr id="cell_@entry.Key.isbn">
+                        {{>miniLibroCarrito unlibro}}
+                    </tr>
+                    
+                {{/each}}
+            <tr class="thead-dark" id="t">
+                <th></th>
+                <th>TOTAL</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@ViewBag.precioTotal €</th>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="button-wrapper">
+            <button type="button" class="btn btn-success btn-checkout">COMPRAR</button>
+            <a href="/Tienda/Libros/"
+            class="btn btn-light btn-continous">CONTINAR COMPRANDO</a>
+        </div>
+        <small class="order-info">Tu pedido será entregado en un máximo de 24 horas.</small>
+    </main>
+
 
     <script>
-        var botones=document.getElementsByName("boton");
 
-        //--añado un listener a todos los botonesMas y botonesMenos
-        Array.from(botones).forEach((boton)=>{
-            boton.addEventListener("click",(ev)=>{
-                var _botonPulsado=ev.target;
-                var _isbnModificado=_botonPulsado.id.split("+")[1];
-                var _cantidad=parseInt(document.getElementById("cantidad_"+_isbnModificado).childNodes[0].nodeValue);
-                switch(_botonPulsado.id.split("_")[0]){
-                    case "botomas":
-                        // incrementamos cantidad y pedimos al servidor que rfresque vistapedido con la nueva cantidad
-                        _cantidad=_cantidad+1;
-                    break;
-                    case "botonmenos":
-                        // decrementamos cantidad y pedimos al servidor que rfresque vistapedido con la nueva cantidad
-                        // controlo que no sea 0
-                        _cantidad=_cantidad-1;
-
-                    break;
-                }
-               // document.getElementById("cantidad_"+_isbnModificado).childNodes[0].nodeValue=_cantidad;
-               window.location.href="http://localhost:3000/Tienda/RefrescaPedido/"+_isbnModificado+"?cantidad="+_cantidad;
-            }); // fin de listener
-        }); // fin de foreach
+        // cuando la pagina carga hace foco en el último elemento añadido o borrado
+        window.onload = function () {
+            var isbn = window.location.pathname.split("/")[3];
+            var foco = document.getElementById("cell_"+isbn); // aqui hay que poner el id de la fila
+            foco.scrollIntoView();
+            };
     </script>
+
+
 </body>
 </html>
