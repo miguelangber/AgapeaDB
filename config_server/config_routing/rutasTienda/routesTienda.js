@@ -106,17 +106,6 @@ router.get("/Quitalibro/:paramTienda",(req,res,next)=>{
     Libro.findOne({"iSBN":req.paramTienda},(err,datos)=>{
         if(!err){
             var _pedido = req.session.pedidoUsuario;
-            var _libroEliminar= _pedido.listaLibros.find((el)=>{return el.libro.ISBN==req.paramTienda});
-            if(_libroEliminar != undefined){
-                var _temp=[];
-                _pedido.listaLibros.forEach( (el)=>{
-                    if(el.libro.ISBN != req.paramTienda){
-                        _temp.push(el);
-                    }
-                } );
-                _pedido.listaLibros=_temp;
-                req.session.pedidoUsuario=_pedido;
-            }
             
             res.render('Tienda/Pedido.hbs',{ layout: null, 
                                              pedido: _pedido
@@ -125,11 +114,54 @@ router.get("/Quitalibro/:paramTienda",(req,res,next)=>{
     });
 });
 
+function borraLibro(pedido,isbn){
+
+    var _temp=[];
+    pedido.listaLibros.forEach( (el)=>{
+        if(el.libro.ISBN != isbn){
+            _temp.push(el);
+        }
+    } );
+    pedido.listaLibros=_temp;
+    return pedido;
+
+}
+
 router.get("/RefrescaPedido/:paramTienda",(req,res,next)=>{
     //en paramTienda está el libro del que quiero moificar la cantidad
+    var _isbn = req.paramTienda;
+    var _action = req.query.a;
+    
+    Libro.findOne({"iSBN":_isbn},(err,datos)=>{
+        if(!err){
+            var _pedido = req.session.pedidoUsuario;
+            var _libro = _pedido.listaLibros.find((el)=>{return el.libro.ISBN==_isbn});
+            switch(_action){
+                case "add":
+                    if(_libro&&_libro.cantidad>0){
+                        _libro.cantidad=_libro.cantidad + 1;
+                    }
+                    break;
+                case "dec":
+                    if(_libro&&_libro.cantidad>1){
+                        console.log(_libro.cantidad>0)
+                        _libro.cantidad=_libro.cantidad - 1;
+                    }else if (_libro&&_libro.cantidad == 1) {
+                        borraLibro(_pedido,_isbn);
+                    }
+                    break;
+                case "del":
+                    if(_libro){
+                        _pedido = borraLibro(_pedido,_isbn);
+                    }
+                    break;
+            }
+            req.session.pedidoUsuario=_pedido;
+            res.render('Tienda/Pedido.hbs',{ /*layout: null,*/ 
+                pedido: _pedido
+           });
+        }
+    });
 });
 
-/*
-    temperdata
-*/
 module.exports = router;

@@ -1,5 +1,5 @@
 <td>
-    <a class="btn btn-danger">X</a>
+    <a class="btn btn-danger btncant" id="del_{{libro.ISBN}}">X</a>
 </td>
 <td><img height="100" src="/public/imagenes/imagenLibro.png" alt={{libro.Titulo}} /></td>
 <td scope="row">
@@ -8,11 +8,11 @@
     <p style="max-width:500px; max-height:120px; overflow:auto">{{libro.Descripcion}}</p>
 </td>
 <td>
-    <a class="btn btn-primary">+</a>
+    <a class="btn btn-primary btncant" id="add_{{libro.ISBN}}">+</a>
 
     <span class="p-2">{{cantidad}}</span>
 
-    <a class="btn btn-primary">-</a>
+    <a class="btn btn-primary btncant" id="dec_{{libro.ISBN}}">-</a>
 </td>
 <td>{{libro.Precio}} €</td>
 <td></td>

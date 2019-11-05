@@ -34,7 +34,7 @@
             </thead>
             <tbody>
                 {{#each pedido.listaLibros as |unlibro|}}
-                    <tr id="cell_@entry.Key.isbn">
+                    <tr id="cell_{{libro.ISBN}}">
                         {{>miniLibroCarrito unlibro}}
                     </tr>
                     
@@ -63,10 +63,26 @@
 
         // cuando la pagina carga hace foco en el último elemento añadido o borrado
         window.onload = function () {
-            var isbn = window.location.pathname.split("/")[3];
+            var isbn = window.location.pathname.split("/")[3].substr(0,10);
+            console.log(isbn);
             var foco = document.getElementById("cell_"+isbn); // aqui hay que poner el id de la fila
+            console.log("el foco es "+foco)
             foco.scrollIntoView();
             };
+
+
+
+        var botones = Array.from(document.getElementsByClassName("btncant"));
+        botones.forEach((elem)=>{
+            console.log("estoy dentro del foreach");
+            elem.addEventListener("click",(ev)=>{
+                console.log(typeof(elem.id));
+                var id = elem.id;
+                var action = id.split("_")[0];
+                var isbn = id.split("_")[1];
+                window.location.href = "/Tienda/RefrescaPedido/"+isbn+"?a="+action;
+            }); // end addEventListener
+        }); // end foreach
     </script>
 
 
